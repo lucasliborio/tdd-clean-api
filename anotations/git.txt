@@ -17,3 +17,14 @@ git config --global --edit // EDITAR AS CONFIGURAÇÕES GLOBAIS DO MEU GIT
 
 //GIT STATUS
 // git status -s // FLAG '-s' SIMPLIFICA A QUANTIDADE DE COMANDOS QUE APARECE NO 'git status'
+
+
+
+//git log legendas
+
+//%cn = commiter name
+//%cr = hora do commit
+//%h = hash da branch
+//%D = NOME DA BRANCH
+
+//QUALQUER DUVIDA IR NO SITE DO GIT BUSCAR POR FORMAT - PRETTY
