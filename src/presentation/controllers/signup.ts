@@ -4,15 +4,16 @@ import { HttpRequest, HttpResponse } from '../protocols/http'
 
 export class SignUpController {
   handle (req: HttpRequest): HttpResponse {
-    if (!req.body.name) {
-      return badRequest(new MissingParamError('name'))
-    }
-    if (!req.body.email) {
-      return badRequest(new MissingParamError('email'))
+    const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
+
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return badRequest(new MissingParamError(field))
+      }
     }
     return {
       statusCode: 200,
-      body: { sucess: 'user created' }
+      body: { sucess: 'user created sucefully' }
     }
   }
 }
