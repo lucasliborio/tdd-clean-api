@@ -5,6 +5,7 @@
   },
   "rules": {
     "@typescript-eslint/strict-boolean-expressions": "off",
-    "no-extra-boolean-cast":"off"
+    "no-extra-boolean-cast":"off",
+    "@typescript-eslint/return-await":"off"
   }
 }
