@@ -8,7 +8,7 @@ export interface SubType {
 }
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
-    async encrypt (value: string): Promise<string> {
+    async encrypt(value: string): Promise<string> {
       return new Promise(resolve => resolve('hashed_value'))
     }
   }
@@ -27,7 +27,7 @@ const makeSut = (): SubType => {
 
 const makeAddAccountRepo = (): AddAccountRepository => {
   class AddAccountRepository implements AddAccountRepository {
-    async add (accountData: AddAccountModel): Promise<AccountModel> {
+    async add(accountData: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
@@ -94,5 +94,22 @@ describe('DbAddAccount UseCase', () => {
     }
     const promise = sut.add(accountData)
     await expect(promise).rejects.toThrow()
+  })
+
+  test('should return an account on sucess', async () => {
+    const { sut } = makeSut()
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_name@mail.com',
+      password: 'valid_password'
+    }
+    const account = await sut.add(accountData)
+
+    expect(account).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_name@mail.com',
+      password: 'valid_password'
+    })
   })
 })
