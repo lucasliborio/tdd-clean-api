@@ -1,9 +1,10 @@
-import { Encrypter } from './db-add-account-protocols'
+import { AddAccountModel, Encrypter, AccountModel, AddAccountRepository } from './db-add-account-protocols'
 import { DbAddAccount } from './db-add-account'
 
 export interface SubType {
   sut: DbAddAccount
   encrypterStub: Encrypter
+  addAccountRepositoryStub: AddAccountRepository
 }
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
@@ -15,12 +16,30 @@ const makeEncrypter = (): Encrypter => {
 }
 const makeSut = (): SubType => {
   const encrypterStub = makeEncrypter()
-  const sut = new DbAddAccount(encrypterStub)
+  const addAccountRepositoryStub = makeAddAccountRepo()
+  const sut = new DbAddAccount(encrypterStub, addAccountRepositoryStub)
   return {
     sut,
-    encrypterStub
+    encrypterStub,
+    addAccountRepositoryStub
   }
 }
+
+const makeAddAccountRepo = (): AddAccountRepository => {
+  class AddAccountRepository implements AddAccountRepository {
+    async add (accountData: AddAccountModel): Promise<AccountModel> {
+      const fakeAccount = {
+        id: 'valid_id',
+        name: 'valid_name',
+        email: 'valid_name@mail.com',
+        password: 'valid_password'
+      }
+      return new Promise(resolve => resolve(fakeAccount))
+    }
+  }
+  return new AddAccountRepository()
+}
+
 describe('DbAddAccount UseCase', () => {
   test('Should call Encrypter with correct password', async () => {
     const { sut, encrypterStub } = makeSut()
@@ -45,5 +64,24 @@ describe('DbAddAccount UseCase', () => {
     }
     const promise = sut.add(accountData)
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should call AddAccountRepository with correct values', async () => {
+    const { sut, addAccountRepositoryStub } = makeSut()
+    const addSpy = jest.spyOn(addAccountRepositoryStub, 'add')
+    const accountData = {
+      name: 'valid_name',
+      email: 'valid_name@mail.com',
+      password: 'valid_password'
+    }
+
+    await sut.add(accountData)
+    await expect(addSpy).toHaveBeenCalledWith(
+      {
+        name: 'valid_name',
+        email: 'valid_name@mail.com',
+        password: 'hashed_value'
+      }
+    )
   })
 })
