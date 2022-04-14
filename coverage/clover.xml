@@ -1,15 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1649796091291" clover="3.2.0">
-  <project timestamp="1649796091291" name="All files">
-    <metrics statements="46" coveredstatements="39" conditionals="3" coveredconditionals="3" methods="9" coveredmethods="9" elements="58" coveredelements="51" complexity="0" loc="46" ncloc="46" packages="5" files="9" classes="9"/>
-    <package name="presentation.controllers.signup">
-      <metrics statements="22" coveredstatements="18" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
-      <file name="signup-protocols.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\presentation\controllers\signup\signup-protocols.ts">
+<coverage generated="1649884710321" clover="3.2.0">
+  <project timestamp="1649884710322" name="All files">
+    <metrics statements="61" coveredstatements="51" conditionals="3" coveredconditionals="3" methods="13" coveredmethods="13" elements="77" coveredelements="67" complexity="0" loc="61" ncloc="61" packages="7" files="12" classes="12"/>
+    <package name="data.usecases.add-account">
+      <metrics statements="10" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="db-add-account-protocols.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\data\usecases\add-account\db-add-account-protocols.ts">
         <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
+      </file>
+      <file name="db-add-account.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\data\usecases\add-account\db-add-account.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="6" count="5" type="stmt"/>
+        <line num="7" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="infra.criptography">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+      <file name="bcrypt-adapter.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\infra\criptography\bcrypt-adapter.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="presentation.controllers.signup">
+      <metrics statements="21" coveredstatements="18" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
+      <file name="signup-protocols.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\presentation\controllers\signup\signup-protocols.ts">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="0" type="stmt"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
       </file>
       <file name="signup.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\presentation\controllers\signup\signup.ts">
         <metrics statements="18" coveredstatements="18" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
@@ -83,11 +112,12 @@
       </file>
     </package>
     <package name="util">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
       <file name="email-validator-adapter.ts" path="C:\Users\lukas\Desktop\tdd-typescript\src\util\email-validator-adapter.ts">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
       </file>
     </package>
   </project>
