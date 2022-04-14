@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "only":"ts-node src/main/config/routes.ts ",
     "start:dev": "ts-node src/main/server.ts",
     "test": "jest --runInBand --silent",
     "test:verbose": "jest  --passWithNoTests --runInBand --verbose",
