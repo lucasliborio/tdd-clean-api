@@ -7,4 +7,4 @@ const app = express()
 setupMiddlewaes(app)
 setupRoutes(app)
 
-export { app }
+export default app
