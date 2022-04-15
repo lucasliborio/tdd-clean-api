@@ -4,7 +4,7 @@ import { HttpResponse } from '../protocols'
 export function badRequest (err: Error): HttpResponse {
   return {
     statusCode: 400,
-    body: err
+    body: err.message
   }
 }
 
