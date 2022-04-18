@@ -1,4 +1,4 @@
-import { ServerError } from '../errors'
+import { ServerError, UnauthorizedError } from '../errors'
 import { HttpResponse } from '../protocols'
 
 export function badRequest (err: Error): HttpResponse {
@@ -7,10 +7,10 @@ export function badRequest (err: Error): HttpResponse {
     body: { error: err.message }
   }
 }
-export function unauthorized (err: Error): HttpResponse {
+export function unauthorized (): HttpResponse {
   return {
     statusCode: 401,
-    body: { error: err.message }
+    body: new UnauthorizedError().message
   }
 }
 
