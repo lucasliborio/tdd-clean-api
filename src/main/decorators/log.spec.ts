@@ -72,7 +72,7 @@ describe('', () => {
     jest.spyOn(controllerStub, 'handle').mockImplementationOnce(async () => { return makeFakeServerError() })
     const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
     await sut.handle(makeHttpRequest())
-    expect(logSpy).toHaveBeenCalledWith('anystacck')
+    expect(logSpy).toBeCalled()
   })
 })
 

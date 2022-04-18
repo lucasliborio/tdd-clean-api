@@ -1,10 +1,10 @@
 {
   "name": "tdd-typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "Node API with TDD and Typescript",
   "main": "index.js",
   "scripts": {
-    "start:dev": "nodemon src/main/server.ts",
+    "start:dev": "ts-node-dev src/main/server.ts",
     "test": "jest --runInBand --silent",
     "test:verbose": "jest  --passWithNoTests --runInBand --verbose",
     "test:unit": "npm test -- --watchAll -c jest-unit.config.js",
@@ -14,7 +14,7 @@
     "prepare": "husky install ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Lucas Liborio",
   "license": "ISC",
   "devDependencies": {
     "@shelf/jest-mongodb": "^2.2.1",

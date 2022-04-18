@@ -11,7 +11,7 @@ export function badRequest (err: Error): HttpResponse {
 export function serverError (err: Error): HttpResponse {
   return {
     statusCode: 500,
-    body: new ServerError(err.stack)
+    body: new ServerError(err.stack).name
   }
 }
 
