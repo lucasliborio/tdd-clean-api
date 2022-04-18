@@ -7,6 +7,12 @@ export function badRequest (err: Error): HttpResponse {
     body: { error: err.message }
   }
 }
+export function unauthorized (err: Error): HttpResponse {
+  return {
+    statusCode: 401,
+    body: { error: err.message }
+  }
+}
 
 export function serverError (err: Error): HttpResponse {
   return {
