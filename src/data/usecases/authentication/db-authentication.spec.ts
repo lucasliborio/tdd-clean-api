@@ -1,5 +1,5 @@
 import { AccountModel } from '../add-account/db-add-account-protocols'
-import { LoadAccountByEmailRepository } from '../../protocols/load-account-by-email-repository'
+import { LoadAccountByEmailRepository } from '../../protocols/db/load-account-by-email-repository'
 import { DbAuthentication } from './db-authentication'
 import { Authentication, AuthenticationModel } from '../../../domain/usecases/authentication'
 
@@ -51,5 +51,12 @@ describe('', () => {
     jest.spyOn(loadAccountByEmailRepositoryStub, 'load').mockRejectedValueOnce(new Error())
     const promise = sut.auth(makeFakeAuthenticationModel())
     await expect(promise).rejects.toThrow()
+  })
+
+  test('Should return null if no Account is found on loadAccountByEmailRepository', async () => {
+    const { sut, loadAccountByEmailRepositoryStub } = makeSut()
+    jest.spyOn(loadAccountByEmailRepositoryStub, 'load').mockReturnValueOnce(null)
+    const accessToken = await sut.auth(makeFakeAuthenticationModel())
+    expect(accessToken).toBe(null)
   })
 })
