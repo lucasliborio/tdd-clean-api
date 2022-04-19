@@ -10,4 +10,9 @@ describe('', () => {
     const error = sut.validate(makeFakeBody)
     expect(error).toEqual(new MissingParamError('field'))
   })
+  test('should not return if validation succeeds', () => {
+    const sut = new RequiredFieldsValidation('name')
+    const error = sut.validate(makeFakeBody)
+    expect(error).toBeFalsy() // CAPTURA SE FOR void
+  })
 })
