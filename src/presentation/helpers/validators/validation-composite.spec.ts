@@ -38,4 +38,11 @@ describe('CompareFieldsValidation', () => {
     const error = sut.validate({ field: 'any_value' })
     expect(error).toEqual(new Error())
   })
+  test('Should not return a error ', () => {
+    const { sut, validationStubs } = makeSut()
+    jest.spyOn(validationStubs[0], 'validate')
+    jest.spyOn(validationStubs[1], 'validate')
+    const error = sut.validate({ field: 'any_value' })
+    expect(error).toBeFalsy()
+  })
 })
