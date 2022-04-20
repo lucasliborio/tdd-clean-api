@@ -8,7 +8,7 @@ export interface SubType {
 }
 const makeHasher = (): Hasher => {
   class HasherStub implements Hasher {
-    async encrypt (value: string): Promise<string> {
+    async hash (value: string): Promise<string> {
       return new Promise(resolve => resolve('hashed_value'))
     }
   }
@@ -51,14 +51,14 @@ const makeAddAccountRepo = (): AddAccountRepository => {
 describe('DbAddAccount UseCase', () => {
   test('Should call Hasher with correct password', async () => {
     const { sut, hasherStub } = makeSut()
-    const encryptspy = jest.spyOn(hasherStub, 'encrypt')
+    const encryptspy = jest.spyOn(hasherStub, 'hash')
     await sut.add(makeAccountData())
     expect(encryptspy).toHaveBeenCalledWith('valid_password')
   })
 
   test('Should thorw if Encrypet throws', async () => {
     const { sut, hasherStub } = makeSut()
-    jest.spyOn(hasherStub, 'encrypt').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+    jest.spyOn(hasherStub, 'hash').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
 
     const promise = sut.add(makeAccountData())
     await expect(promise).rejects.toThrow()

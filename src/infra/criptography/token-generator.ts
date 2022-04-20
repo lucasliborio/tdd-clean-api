@@ -1,10 +1,10 @@
-import { TokenGenerator } from '../../data/protocols/criptography/token-generator'
+import { Encrypter } from '../../data/protocols/criptography/encrypter'
 import jwt from 'jsonwebtoken'
 
-export class TokenGeneratorAdapter implements TokenGenerator {
-  async generate (id: string): Promise<string> {
+export class EncrypterAdapter implements Encrypter {
+  async encrypt (value: string): Promise<string> {
     return new Promise((resolve, reject) => {
-      jwt.sign(id, 'dfsdhfoisdhfodshfjoisdfsf', (err, decoded) => {
+      jwt.sign(value, 'dfsdhfoisdhfodshfjoisdfsf', (err, decoded) => {
         if (err) return reject(err)
         resolve(decoded)
       })

@@ -1,4 +1,4 @@
-export * from '../../protocols/criptography/token-generator'
+export * from '../../protocols/criptography/encrypter'
 export * from '../../protocols/criptography/hash-comparer'
 export * from '../add-account/db-add-account-protocols'
 export * from '../../protocols/db/load-account-by-email-repository'
