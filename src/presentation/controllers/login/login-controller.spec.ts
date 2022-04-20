@@ -1,6 +1,6 @@
 import { badRequest, ok, serverError, unauthorized } from '../../helpers/http/http-helper'
 import { Controller, HttpRequest, Authentication, Validation, AuthenticationModel } from './login-protocols'
-import { LoginController } from './login'
+import { LoginController } from './login-controller'
 
 interface SutTypes {
   sut: Controller
