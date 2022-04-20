@@ -54,7 +54,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 
 const makeUpdateTokenAccessRepository = (): UpdateAccessTokenRepository => {
   class UpdateAccessTokenRepositoryStub implements UpdateAccessTokenRepository {
-    async update (email: string): Promise<void> {
+    async updateAccessToken (email: string): Promise<void> {
       return new Promise(resolve => resolve())
     }
   }
@@ -134,7 +134,7 @@ describe('', () => {
 
   test('Should call UpdateAcesstokenRepository with ', async () => {
     const { sut, updateTokenAccessRepositoryStub, encrypterStub } = makeSut()
-    const updateSpy = jest.spyOn(updateTokenAccessRepositoryStub, 'update')
+    const updateSpy = jest.spyOn(updateTokenAccessRepositoryStub, 'updateAccessToken')
     jest.spyOn(encrypterStub, 'encrypt').mockResolvedValue('valid_token')
     await sut.auth(makeFakeAuthenticationModel())
     expect(updateSpy).toBeCalledWith('valid_id', 'valid_token')
@@ -142,7 +142,7 @@ describe('', () => {
 
   test('Should throws if updateAccessTokenRepository throws', async () => {
     const { sut, updateTokenAccessRepositoryStub } = makeSut()
-    jest.spyOn(updateTokenAccessRepositoryStub, 'update').mockRejectedValueOnce(new Error())
+    jest.spyOn(updateTokenAccessRepositoryStub, 'updateAccessToken').mockRejectedValueOnce(new Error())
     const sutSpy = sut.auth(makeFakeAuthenticationModel())
     await expect(sutSpy).rejects.toEqual(new Error())
   })

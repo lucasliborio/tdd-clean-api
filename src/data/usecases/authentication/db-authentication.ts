@@ -18,7 +18,7 @@ export class DbAuthentication implements Authentication {
       const comparePasswords = await this.hashComparerAdapter.compare(authentication.password, account.password)
       if (comparePasswords) {
         const token = await this.jwtAdapter.encrypt(account.id)
-        await this.updateAccessTokenRepository.update(account.id, token)
+        await this.updateAccessTokenRepository.updateAccessToken(account.id, token)
         return token
       }
     }
