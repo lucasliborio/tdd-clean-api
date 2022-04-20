@@ -10,14 +10,14 @@ export function badRequest (err: Error): HttpResponse {
 export function unauthorized (): HttpResponse {
   return {
     statusCode: 401,
-    body: new UnauthorizedError().message
+    body: { error: new UnauthorizedError().message }
   }
 }
 
 export function serverError (err: Error): HttpResponse {
   return {
     statusCode: 500,
-    body: new ServerError(err.stack).name
+    body: { error: new ServerError(err.stack).name }
   }
 }
 
