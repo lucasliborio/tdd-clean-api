@@ -3,6 +3,11 @@ import jwt from 'jsonwebtoken'
 
 export class TokenGeneratorAdapter implements TokenGenerator {
   async generate (id: string): Promise<string> {
-    const validToken = await jwt.sign(id)
+    return new Promise((resolve, reject) => {
+      jwt.sign(id, 'dfsdhfoisdhfodshfjoisdfsf', (err, decoded) => {
+        if (err) return reject(err)
+        resolve(decoded)
+      })
+    })
   }
 }
