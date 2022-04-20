@@ -132,7 +132,7 @@ describe('', () => {
     await expect(sutSpy).rejects.toEqual(new Error())
   })
 
-  test('Should call UpdateAcesstokenRepository with ', async () => {
+  test('Should call UpdateAcesstokenRepository with correct vallues', async () => {
     const { sut, updateTokenAccessRepositoryStub, encrypterStub } = makeSut()
     const updateSpy = jest.spyOn(updateTokenAccessRepositoryStub, 'updateAccessToken')
     jest.spyOn(encrypterStub, 'encrypt').mockResolvedValue('valid_token')
