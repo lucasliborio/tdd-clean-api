@@ -3,12 +3,12 @@ import { Authentication, AuthenticationModel, HashComparer, LoadAccountByEmailRe
 export class DbAuthentication implements Authentication {
   private readonly loadAccountByEmailRepository: LoadAccountByEmailRepository
   private readonly hashComparerAdapter: HashComparer
-  private readonly tokenGenerator: Encrypter
+  private readonly jwtAdapter: Encrypter
   private readonly updateAccessTokenRepository: UpdateAccessTokenRepository
-  constructor (loadAccountByEmailRepository: LoadAccountByEmailRepository, hashComparerAdapter: HashComparer, tokenGenerator: Encrypter, updateAccessTokenRepository: UpdateAccessTokenRepository) {
+  constructor (loadAccountByEmailRepository: LoadAccountByEmailRepository, hashComparerAdapter: HashComparer, jwtAdapter: Encrypter, updateAccessTokenRepository: UpdateAccessTokenRepository) {
     this.loadAccountByEmailRepository = loadAccountByEmailRepository
     this.hashComparerAdapter = hashComparerAdapter
-    this.tokenGenerator = tokenGenerator
+    this.jwtAdapter = jwtAdapter
     this.updateAccessTokenRepository = updateAccessTokenRepository
   }
 
@@ -17,7 +17,7 @@ export class DbAuthentication implements Authentication {
     if (account) {
       const comparePasswords = await this.hashComparerAdapter.compare(authentication.password, account.password)
       if (comparePasswords) {
-        const token = await this.tokenGenerator.encrypt(account.id)
+        const token = await this.jwtAdapter.encrypt(account.id)
         await this.updateAccessTokenRepository.update(account.id, token)
         return token
       }
