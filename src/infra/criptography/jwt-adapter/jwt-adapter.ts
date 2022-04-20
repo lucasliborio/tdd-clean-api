@@ -14,7 +14,7 @@ export class JwtAdapter implements Encrypter {
         resolve(decoded)
       })
     }) */
-    await jwt.sign({ id: value }, this.secret)
-    return null
+    const acessToken = await jwt.sign({ id: value }, this.secret)
+    return acessToken
   }
 }

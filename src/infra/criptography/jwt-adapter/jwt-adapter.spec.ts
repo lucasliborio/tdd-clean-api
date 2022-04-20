@@ -18,4 +18,10 @@ describe('JWT ADAPTER', () => {
     await sut.encrypt('valid_id')
     expect(signSpy).toBeCalledWith({ id: 'valid_id' }, 'secret')
   })
+  test('should return a token o sign sucess', async () => {
+    const sut = makeSut()
+    jest.spyOn(jwt, 'sign')
+    const accessToken = await sut.encrypt('valid_id')
+    expect(accessToken).toBe('valid_hash')
+  })
 })
