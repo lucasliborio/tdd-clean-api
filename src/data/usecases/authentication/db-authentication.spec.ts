@@ -36,8 +36,8 @@ const makeHashCompare = (): HashComparer => {
 
 const makeEncrypter = (): Encrypter => {
   class EncrypterStub implements Encrypter {
-    async encrypt (id: string): Promise<string> {
-      return new Promise(resolve => resolve('valid_toke'))
+    encrypt (id: string): string {
+      return 'valid_token'
     }
   }
   return new EncrypterStub()
@@ -127,15 +127,15 @@ describe('', () => {
 
   test('Should throws if TokenGenerator throws', async () => {
     const { sut, encrypterStub } = makeSut()
-    jest.spyOn(encrypterStub, 'encrypt').mockReturnValueOnce(new Promise((resolve, reject) => { reject(new Error()) }))
+    jest.spyOn(encrypterStub, 'encrypt').mockImplementationOnce(() => { throw new Error() })
     const sutSpy = sut.auth(makeFakeAuthenticationModel())
-    await expect(sutSpy).rejects.toEqual(new Error())
+    await expect(sutSpy).rejects.toThrow()
   })
 
   test('Should call UpdateAcesstokenRepository with correct vallues', async () => {
     const { sut, updateTokenAccessRepositoryStub, encrypterStub } = makeSut()
     const updateSpy = jest.spyOn(updateTokenAccessRepositoryStub, 'updateAccessToken')
-    jest.spyOn(encrypterStub, 'encrypt').mockResolvedValue('valid_token')
+    jest.spyOn(encrypterStub, 'encrypt').mockReturnValue('valid_token')
     await sut.auth(makeFakeAuthenticationModel())
     expect(updateSpy).toBeCalledWith('valid_id', 'valid_token')
   })
