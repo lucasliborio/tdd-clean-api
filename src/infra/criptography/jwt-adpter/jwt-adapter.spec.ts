@@ -26,8 +26,8 @@ describe('JWT ADAPTER', () => {
   })
   test('should throw if sign throws', async () => {
     const sut = makeSut()
-    jest.spyOn(jwt, 'sign').mockImplementationOnce(() => { return 'valid_hash' })
+    jest.spyOn(jwt, 'sign').mockImplementationOnce(() => { return new Error() })
     const accessToken = sut.encrypt('valid_id')
-    expect(accessToken).toBe('valid_hash')
+    expect(accessToken).toEqual(new Error())
   })
 })
