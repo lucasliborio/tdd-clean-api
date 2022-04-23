@@ -4,6 +4,8 @@
   "description": "Node API with TDD and Typescript",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/main/server.js",
+    "build": "rimraf dist && tsc",
     "start:dev": "ts-node-dev src/main/server.ts",
     "test": "jest --runInBand",
     "test:verbose": "jest  --passWithNoTests --runInBand --verbose -c jest-unit.config.js",
@@ -37,6 +39,7 @@
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
     "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
     "supertest": "^6.2.2",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
