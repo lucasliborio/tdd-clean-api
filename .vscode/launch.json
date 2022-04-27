@@ -2,15 +2,17 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Docker: Attach to Node",
       "type": "node",
       "request": "attach",
-      "name": "Docker: Attach to Node",
-      "remoteRoot": "usr/src/tdd-node-api",
+      "restart": true,
       "port": 9222,
+      "remoteRoot": "/USR/WORKSPACE/TDD-NODE-API",
+      "protocol": "inspector",
       "resolveSourceMapLocations": [
-        "${workspaceFolder}/**",
-        "!**/node_modules/**"
-    ]
+        "/USR/WORKSPACE/TDD-NODE-API/**",
+        "!node_modules",
+      ]
     }
-  ],
+  ]
 }
