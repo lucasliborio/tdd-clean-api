@@ -12,12 +12,14 @@ services:
     container_name: api-container
     build:
       context: .
-    image: tdd-node-api
+    image: api-image
     restart: always
-    command: npm start
+    command: npm run debug
     volumes:
     - ./dist:/usr/workspace/tdd-node-api/dist
+    - ./package.json:/usr/workspace/tdd-node-api/package.json
     ports: 
       - "5050:5050"
+      - "9222:9222"
     links:
     - mongo
