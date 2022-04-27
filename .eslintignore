@@ -4,3 +4,4 @@ tsconfig.json
 jest.config.js
 jest-unit.config.js
 jest-integration.config.js
+data
