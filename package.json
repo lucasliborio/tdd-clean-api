@@ -12,8 +12,7 @@
     "test:unit": "npm test -- --watchAll -c jest-unit.config.js",
     "test:integration": "npm run test -- --watchAll -c jest-integration.config.js",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
-    "prepare": "husky install"
+    "test:ci": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "Lucas Liborio",
