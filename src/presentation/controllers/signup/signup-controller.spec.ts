@@ -1,7 +1,7 @@
-import { InvalidParamError, ServerError } from '../../errors'
+import { InvalidParamError, ServerError, EmailInUseError } from '../../errors'
 import { AddAccount, AddAccountModel, AccountModel, HttpRequest, Validation, Authentication, AuthenticationModel } from './signup-protocols'
 import { SignUpController } from './signup-controller'
-import { ok, serverError, badRequest } from '../../helpers/http/http-helper'
+import { ok, serverError, badRequest, forbidden } from '../../helpers/http/http-helper'
 
 /* const makeEmailValidatorWithError = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -100,11 +100,12 @@ describe('SignUp Controller', () => {
     expect(httpResponse).toEqual(serverError(new InvalidParamError('email')))
   })
 
-  /* test('Should return 200 and a valid Account Object', async () => {
-    const { sut } = makeSut()
+  test('Should return 200 and a valid Account Object', async () => {
+    const { sut, addAccountStub } = makeSut()
+    jest.spyOn(addAccountStub, 'add').mockReturnValueOnce(new Promise(resolve => resolve(null)))
     const httpResponse = await sut.handle(makeHttpRequest())
-    expect(httpResponse).toEqual(ok(makeFakeAccount()))
-  }) */
+    expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
+  })
 
   test('should call validation with correct value', async () => {
     const { sut, validationStub } = makeSut()
