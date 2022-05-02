@@ -1,13 +1,15 @@
-import { AddAccount, Controller, HttpRequest, HttpResponse, Validation } from './signup-protocols'
+import { AddAccount, Authentication, Controller, HttpRequest, HttpResponse, Validation } from './signup-protocols'
 import { badRequest, serverError, ok } from '../../helpers/http/http-helper'
 
 export class SignUpController implements Controller {
   private readonly addAccount: AddAccount
   private readonly validation: Validation
+  private readonly authentication: Authentication
 
-  constructor (addAccount: AddAccount, validation: Validation) {
+  constructor (addAccount: AddAccount, validation: Validation, authentication: Authentication) {
     this.addAccount = addAccount
     this.validation = validation
+    this.authentication = authentication
   }
 
   async handle (req: HttpRequest): Promise<HttpResponse> {
@@ -20,6 +22,8 @@ export class SignUpController implements Controller {
         email,
         password
       })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const token = this.authentication.auth({ email, password })
       return ok(account)
     } catch (error: any) {
       return serverError(error)
