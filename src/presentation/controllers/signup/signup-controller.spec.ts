@@ -100,11 +100,11 @@ describe('SignUp Controller', () => {
     expect(httpResponse).toEqual(serverError(new InvalidParamError('email')))
   })
 
-  test('Should return 200 and a valid Account Object', async () => {
+  /* test('Should return 200 and a valid Account Object', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeHttpRequest())
     expect(httpResponse).toEqual(ok(makeFakeAccount()))
-  })
+  }) */
 
   test('should call validation with correct value', async () => {
     const { sut, validationStub } = makeSut()
@@ -125,5 +125,16 @@ describe('SignUp Controller', () => {
     const authSpy = jest.spyOn(authenticationStub, 'auth')
     await sut.handle(makeAuthRequest())
     expect(authSpy).toHaveBeenCalledWith({ email: makeAuthRequest().body.email, password: makeAuthRequest().body.password })
+  })
+  test('should return 500 if emailValidator throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    jest.spyOn(authenticationStub, 'auth').mockImplementationOnce(async () => { throw new Error() })
+    const httpResponse = await sut.handle(makeAuthRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
+  test('should return 200 on valid request params', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(makeHttpRequest())
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 })

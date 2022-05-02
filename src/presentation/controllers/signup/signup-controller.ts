@@ -17,14 +17,13 @@ export class SignUpController implements Controller {
       const error = this.validation.validate(req.body)
       if (error) return badRequest(error)
       const { name, email, password } = req.body
-      const account = await this.addAccount.add({
+      await this.addAccount.add({
         name,
         email,
         password
       })
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const token = this.authentication.auth({ email, password })
-      return ok(account)
+      const token = await this.authentication.auth({ email, password })
+      return ok({ accessToken: token })
     } catch (error: any) {
       return serverError(error)
     }
