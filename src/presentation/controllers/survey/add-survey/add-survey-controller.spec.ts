@@ -1,5 +1,5 @@
 import { HttpRequest, Controller, Validation, AddSurvey, AddSurveyModel } from './add-survey-protocols'
-import { badRequest } from '../../../helpers/http/http-helper'
+import { badRequest, serverError } from '../../../helpers/http/http-helper'
 import { AddSurveyController } from './add-survey-controller'
 describe('Add Survey Controller', () => {
   const makeValidationStub = (): Validation => {
@@ -63,13 +63,13 @@ describe('Add Survey Controller', () => {
     await sut.handle(httpRequest)
     expect(addSurvey).toBeCalledWith(makeFakeRequest().body)
   })
-  /* test('should throws if validation throws', async () => {
-    const { sut, validationStub } = makeSut()
+  test('should throws if AddSurvey.add throws', async () => {
+    const { sut, addSurveyStub } = makeSut()
     const httpRequest = makeFakeRequest()
-    jest.spyOn(validationStub, 'validate').mockImplementationOnce(() => { throw new Error() })
+    jest.spyOn(addSurveyStub, 'add').mockRejectedValueOnce(new Error())
     const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse).toThrowError(new Error())
-  }) */
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 
   test('should return 204 if succeds', async () => {
     const { sut, validationStub } = makeSut()
