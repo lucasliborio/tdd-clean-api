@@ -32,3 +32,9 @@ export function ok (data: any): HttpResponse {
     body: data
   }
 }
+export function noContent (data: any): HttpResponse {
+  return {
+    statusCode: 204,
+    body: null
+  }
+}

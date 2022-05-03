@@ -1,4 +1,3 @@
-
 import { Controller, HttpRequest, Authentication, Validation, AuthenticationModel } from './login-protocols'
 import { LoginController } from './login-controller'
 import { unauthorized, serverError, ok, badRequest } from '../../../helpers/http/http-helper'
