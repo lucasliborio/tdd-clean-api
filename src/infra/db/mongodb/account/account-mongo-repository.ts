@@ -25,7 +25,6 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     await accountCollection.updateOne(
       { _id: new ObjectId(id) },
       {
-        // eslint-disable-next-line quote-props
         $set: { accessToken: token }
       }
     )
