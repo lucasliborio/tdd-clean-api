@@ -41,5 +41,11 @@ describe('JWT ADAPTER', () => {
       sut.decrypt('valid_token')
       expect(verifySpy).toBeCalledWith('valid_token', 'secret')
     })
+    test('should return a value if verify succeds', () => {
+      const sut = makeSut()
+      jest.spyOn(jwt, 'verify')
+      const resultDecrypt = sut.decrypt('valid_token')
+      expect(resultDecrypt).toBe('valid_payload')
+    })
   })
 })
