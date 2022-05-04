@@ -2,6 +2,7 @@ import { AccessDeniedError } from '../errors'
 import { AuthMiddleware } from './auth-middleware'
 import { forbidden, serverError, ok } from '../helpers/http/http-helper'
 import { LoadAccountByToken, AccountModel, HttpRequest, Middleware } from './auth-middleware-protocols'
+
 describe('Auth middleware', () => {
   const makeFakeAccount = (): AccountModel => {
     return {
@@ -24,7 +25,7 @@ describe('Auth middleware', () => {
   }
   const makeLoadAccountByTokenStub = (): LoadAccountByToken => {
     class LoadAccountByTokenStub implements LoadAccountByToken {
-      async load (acessToken: string, role?: string): Promise<AccountModel> {
+      async load (accessToken: string, role?: string): Promise<AccountModel> {
         return new Promise(resolve => resolve(makeFakeAccount()))
       }
     }
