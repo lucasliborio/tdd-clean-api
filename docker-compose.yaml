@@ -9,6 +9,8 @@ services:
     ports: 
       - "27017:27017"
   api:
+    env_file:
+      - .env
     container_name: api-container
     working_dir: /usr/workspace/tdd-node-api
     image: node:16
