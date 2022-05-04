@@ -17,7 +17,7 @@ export class AddSurveyController implements Controller {
       }
       const { question, answers } = req.body
       await this.addSurvey.add({ question, answers })
-      return noContent('sim')
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
