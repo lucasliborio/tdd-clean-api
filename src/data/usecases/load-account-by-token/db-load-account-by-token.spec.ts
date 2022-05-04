@@ -29,10 +29,10 @@ describe('Load Account By Token usecase', () => {
     await sut.load('any_token')
     expect(decrypterSpy).toHaveBeenCalledWith('any_token')
   })
-  test('should call decrypter with correct value', async () => {
+  test('should return null if decrypter return null', async () => {
     const { sut, decrypterStub } = makeSut()
-    const decrypterSpy = jest.spyOn(decrypterStub, 'decrypt')
-    await sut.load('any_token')
-    expect(decrypterSpy).toHaveBeenCalledWith('any_token')
+    jest.spyOn(decrypterStub, 'decrypt').mockReturnValueOnce(null)
+    const result = await sut.load('any_token')
+    expect(result).toBeNull()
   })
 })

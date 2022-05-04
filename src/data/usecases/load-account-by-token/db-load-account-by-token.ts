@@ -5,6 +5,7 @@ import { Decrypter } from './db-load-account-by-token-protocols'
 export class DbLoadAccountByToken implements LoadAccountByToken {
   constructor (
     private readonly decrypter: Decrypter
+    /* private readonly LoadAccountById */
   ) {}
 
   async load (accessToken: string, role?: string): Promise<AccountModel> {
