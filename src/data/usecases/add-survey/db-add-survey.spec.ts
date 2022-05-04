@@ -31,10 +31,16 @@ describe('DB AddSurvey usecase', () => {
     }
   }
 
-  test('should call infra layer with correct values', async () => {
+  test('should call AddSurveyRepository  with correct values', async () => {
     const { sut, surveyRepositoryStub } = makeSut()
     const surverSpy = jest.spyOn(surveyRepositoryStub, 'addNewSurvey')
     await sut.add(makeFakeSurvey())
     expect(surverSpy).toHaveBeenCalledWith(makeFakeSurvey())
+  })
+  test('should throws if AddSurveyRepository throws', async () => {
+    const { sut, surveyRepositoryStub } = makeSut()
+    jest.spyOn(surveyRepositoryStub, 'addNewSurvey').mockImplementationOnce(() => { throw new Error() })
+    const result = sut.add(makeFakeSurvey())
+    await expect(result).rejects.toThrow()
   })
 })
