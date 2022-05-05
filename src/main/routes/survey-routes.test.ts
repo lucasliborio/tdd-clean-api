@@ -25,11 +25,11 @@ describe('Survey routes', () => {
   })
 
   describe('POST /surveys ', () => {
-    test('should return  204 on add surver sucess', async () => {
+    test('should return  204 on add survey withou access Token', async () => {
       await supertest(app)
         .post('/api/surveys')
         .send(makeFakeSurvey())
-        .expect(204)
+        .expect(403)
     })
   })
 })
