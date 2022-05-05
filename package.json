@@ -15,7 +15,8 @@
     "test:unit": "npm test -- --watchAll -c jest-unit.config.js",
     "test:integration": "npm run test -- --watchAll -c jest-integration.config.js",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage"
+    "test:ci": "npm test -- --coverage",
+    "test:coveralls": "npm test:ci && coveralls < coverage/lcov.info"
   },
   "keywords": [],
   "author": "Lucas Liborio",
@@ -31,6 +32,7 @@
     "@types/supertest": "^2.0.12",
     "@types/validator": "^13.7.2",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "coveralls": "^3.1.1",
     "eslint": "^7.32.0",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.26.0",
@@ -52,8 +54,8 @@
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.5.0",
-    "validator": "^13.7.0",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "validator": "^13.7.0"
   },
   "engines": {
     "node": "16.x"
