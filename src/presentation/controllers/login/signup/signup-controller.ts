@@ -17,11 +17,12 @@ export class SignUpController implements Controller {
     try {
       const error = this.validation.validate(req.body)
       if (error) return badRequest(error)
-      const { name, email, password } = req.body
+      const { name, email, password, role } = req.body
       const account = await this.addAccount.add({
         name,
         email,
-        password
+        password,
+        role
       })
       if (!account) return forbidden(new EmailInUseError())
       const token = await this.authentication.auth({ email, password })

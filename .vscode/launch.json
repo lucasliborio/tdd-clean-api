@@ -7,10 +7,10 @@
       "request": "attach",
       "restart": true,
       "port": 9222,
-      "remoteRoot": "/USR/WORKSPACE/TDD-NODE-API",
+      "remoteRoot": "usr/workspace/tdd-node-api/dist",
       "protocol": "inspector",
       "resolveSourceMapLocations": [
-        "/USR/WORKSPACE/TDD-NODE-API/**",
+        "usr/workspace/tdd-node-api/dist/**",
         "!node_modules",
       ]
     }
