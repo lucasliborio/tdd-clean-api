@@ -43,8 +43,4 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     })
     return resultAccount as unknown as AccountModel && MongoHelper.map(resultAccount)
   }
-
-  private isAdmin (account: AccountModel): boolean {
-    return account.role === 'admin'
-  }
 }
