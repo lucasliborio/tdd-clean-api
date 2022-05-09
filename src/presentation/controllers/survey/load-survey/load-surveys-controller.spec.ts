@@ -55,9 +55,9 @@ describe('LoadSurveys Controller', () => {
   })
   test('should return 500 if loadSurvey usecase throws', async () => {
     const { sut, loadSurveyStub } = makeSut()
-    jest.spyOn(loadSurveyStub, 'load').mockReturnValueOnce(new Promise((resolve, reject) => { reject(new Error()) }))
-    const result = sut.handle({})
-    await expect(result).resolves.toEqual(serverError(new Error()))
+    jest.spyOn(loadSurveyStub, 'load').mockRejectedValueOnce(new Error())
+    const result = await sut.handle({})
+    expect(result).toEqual(serverError(new Error()))
   })
   test('should return 200 if loadSurvey usecase', async () => {
     const { sut } = makeSut()
