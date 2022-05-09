@@ -1,7 +1,15 @@
 import { HttpRequest, Controller, Validation, AddSurvey, AddSurveyModel } from './add-survey-protocols'
 import { badRequest, serverError } from '../../../helpers/http/http-helper'
 import { AddSurveyController } from './add-survey-controller'
+import MockDate from 'mockdate'
+
 describe('Add Survey Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+  afterAll(() => {
+    MockDate.reset()
+  })
   const makeValidationStub = (): Validation => {
     class ValidationStub implements Validation {
       validate (inputs: any): Error {
@@ -24,7 +32,8 @@ describe('Add Survey Controller', () => {
       answers: [{
         image: 'any_image',
         answer: 'any_answer'
-      }]
+      }],
+      date: new Date()
     }
   })
   interface SutTypes {

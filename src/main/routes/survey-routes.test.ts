@@ -26,7 +26,8 @@ describe('Survey routes', () => {
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
-    }]
+    }],
+    date: new Date()
   })
   /* const mockAccessToken = async (): Promise<string> => {
     const res = await accountCollection.insertOne({

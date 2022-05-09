@@ -11,7 +11,8 @@ describe('DB AddSurvey usecase', () => {
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
-    }]
+    }],
+    date: 'valid_date' as unknown as Date
   })
 
   const makeSurveyRepo = (): AddSurveyRepository => {

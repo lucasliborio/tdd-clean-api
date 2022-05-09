@@ -22,7 +22,8 @@ describe('Survey Mongo Repository', () => {
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
-    }]
+    }],
+    date: new Date()
   })
   const makeSut = (): SurveyMongoRepository => {
     return new SurveyMongoRepository()
