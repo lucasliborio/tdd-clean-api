@@ -1,8 +1,5 @@
+import { AnswerModel } from '../models/survey'
 
-interface AnswerModel {
-  image?: string
-  answer: string
-}
 export interface AddSurveyModel {
   question: string
   answers: AnswerModel[]
