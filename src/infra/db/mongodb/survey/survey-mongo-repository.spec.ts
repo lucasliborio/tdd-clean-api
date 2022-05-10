@@ -14,6 +14,7 @@ const makeFakeSurvey = (): AddSurveyModel => ({
 const makeSut = (): SurveyMongoRepository => {
   return new SurveyMongoRepository()
 }
+
 describe('Survey Mongo Repository', () => {
   let surveryCollection: Collection
 
@@ -46,7 +47,16 @@ describe('Survey Mongo Repository', () => {
     })
   })
   describe('Load Surveys Repository', () => {
-    test('', () => {
+    test('should return a list of repository', async () => {
+      const sut = makeSut()
+      await surveryCollection.insertOne(makeFakeSurvey())
+      const result = await sut.loadSurveys()
+      expect(result.length).toEqual(1)
+    })
+    test('should return a empty list', async () => {
+      const sut = makeSut()
+      const result = await sut.loadSurveys()
+      expect(result.length).toEqual(0)
     })
   })
 })
