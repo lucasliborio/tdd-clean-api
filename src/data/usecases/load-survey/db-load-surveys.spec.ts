@@ -28,7 +28,7 @@ interface SutTypes {
 const makeSurveyRepo = (): LoadSurveysRepository => {
   class LoadSurveyRepoStub implements LoadSurveysRepository {
     async loadSurveys (): Promise<SurveyModel[]> {
-      return new Promise(resolve => resolve(null))
+      return new Promise(resolve => resolve(makeFakeListSurvey()))
     }
   }
   return new LoadSurveyRepoStub()
@@ -61,9 +61,9 @@ describe('DbLoadSurvey', () => {
     const result = sut.load()
     await expect(result).rejects.toThrow()
   })
-  test('should return a list of surveys if success', async () => {
+  test('should return a list of surveys on success', async () => {
     const { sut, loadSurveyRepoStub } = makeSut()
-    jest.spyOn(loadSurveyRepoStub, 'loadSurveys').mockResolvedValue(makeFakeListSurvey())
+    jest.spyOn(loadSurveyRepoStub, 'loadSurveys')
     const result = sut.load()
     await expect(result).resolves.toEqual(makeFakeListSurvey())
   })
