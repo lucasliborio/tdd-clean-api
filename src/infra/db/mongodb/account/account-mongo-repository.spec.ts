@@ -16,7 +16,7 @@ describe('Account Mongo repositor', () => {
     accountCollection = await MongoHelper.getCollection('accounts')
     await accountCollection.deleteMany({})
   })
-  describe('add', () => {
+  describe('add()', () => {
     test('should return an account on sucess', async () => {
       const sut = new AccountMongoRepository()
       const account = await sut.add({
@@ -46,7 +46,7 @@ describe('Account Mongo repositor', () => {
       expect(account.password).toBe('any_password')
     })
   })
-  describe('updateAccessToken', () => {
+  describe('updateAccessToken()', () => {
     test('should update the count acesstoken on updateAcessToken Sucess', async () => {
       const sut = new AccountMongoRepository()
       const res = await accountCollection.insertOne({
