@@ -1,10 +1,10 @@
-import { SignUpController } from '../../../../presentation/controllers/login/signup/signup-controller'
-import { LogControllerDecorator } from '../../../decorators/log-controller-decorator'
-import { Controller } from '../../../../presentation/protocols'
-import { LogMongoRepository } from '../../../../infra/db/mongodb/log-repository/log-mongo-repository'
 import { makeSignupValidation } from './signup-validation-factory'
-import { makeDbAuthenticationFactory } from '../../usecases/authentication/db-authentication-factory'
-import { makeDbAddAccountFactory } from '../../usecases/add-account/db-add-account-factory'
+import { SignUpController } from '@/presentation/controllers/login/signup/signup-controller'
+import { Controller } from '@/presentation/protocols'
+import { LogControllerDecorator } from '@/main/decorators/log-controller-decorator'
+import { makeDbAuthenticationFactory } from '@/main/factories/usecases/authentication/db-authentication-factory'
+import { makeDbAddAccountFactory } from '@/main/factories/usecases/add-account/db-add-account-factory'
+import { LogMongoRepository } from '@/infra/db/mongodb/log-repository/log-mongo-repository'
 
 export const makeSignupController = (): Controller => {
   const validationComposite = makeSignupValidation()

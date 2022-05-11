@@ -1,6 +1,6 @@
 import { readdirSync } from 'fs'
-import path from 'path'
 import { Express, Router } from 'express'
+import path from 'path'
 
 const router = Router()
 
