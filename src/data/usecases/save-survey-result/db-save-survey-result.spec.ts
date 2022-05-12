@@ -9,7 +9,7 @@ const makeFakeSurveyResultData = (): SaveSurveyResultModel => ({
   accountId: 'valid_account_id',
   surveyId: 'valid_survey_id',
   answer: 'any_answer',
-  date: 'valid_date' as unknown as Date
+  date: new Date()
 })
 const makeFakeSurveyResult = (): SurveyResultModel => Object.assign(makeFakeSurveyResultData(), { id: 'valid_id' })
 
