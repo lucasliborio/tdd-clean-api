@@ -1,6 +1,6 @@
 import { SurveyMongoRepository } from './survey-mongo-repository'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { AddSurveyModel } from '@/domain/usecases/add-survey'
+import { AddSurveyModel } from '@/domain/usecases/survey/add-survey'
 import { Collection } from 'mongodb'
 
 const makeFakeSurvey = (): AddSurveyModel => ({
@@ -52,11 +52,25 @@ describe('Survey Mongo Repository', () => {
       await surveryCollection.insertOne(makeFakeSurvey())
       const result = await sut.loadSurveys()
       expect(result.length).toEqual(1)
+      expect(result[0]).toHaveProperty('id')
     })
     test('should return a empty list', async () => {
       const sut = makeSut()
       const result = await sut.loadSurveys()
       expect(result.length).toEqual(0)
+    })
+  })
+  describe('Load Survey By ID Repository', () => {
+    test('should return a survey on success', async () => {
+      const sut = makeSut()
+      const res = await surveryCollection.insertOne(makeFakeSurvey())
+      const result = await sut.loadById(res.insertedId.toString())
+      expect(result).toHaveProperty('_id')
+    })
+    test('should return a empty list', async () => {
+      const sut = makeSut()
+      const result = await sut.loadById('627e503dc09f580a6f1fb7f2')
+      expect(result).toBe(null)
     })
   })
 })
