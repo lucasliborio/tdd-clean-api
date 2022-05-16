@@ -1,8 +1,8 @@
 import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import app from '@/main/config/app'
+
 import { Collection } from 'mongodb'
 import supertest from 'supertest'
-
 // i have a problem with the supertest headers
 let surveyCollection: Collection
 let accountCollection: Collection
@@ -32,8 +32,8 @@ beforeEach(async () => {
     email: 'lucas@gmail.com',
     password: 'valid_hash'
   })
-  const id = res.insertedId.toHexString()
-  console.log(await accountCollection.findOne({ _id: new ObjectId(res.insertedId) }))
+  const id = res.insertedId.toString()
+  console.log(await accountCollection.findOne({ _id: new ObjectId(id) }))
   const accessToken = sign({ id }, env.secret)
   await accountCollection.updateOne({
     _id: new ObjectId(id)
@@ -42,7 +42,7 @@ beforeEach(async () => {
       accessToken: accessToken
     }
   })
-  console.log(await accountCollection.findOne({ _id: new ObjectId(res.insertedId) }))
+  console.log(await accountCollection.findOne({ _id: new ObjectId(id) }))
   return accessToken
 } */
 describe('SURVEY ROUTES', () => {
@@ -59,7 +59,7 @@ describe('SURVEY ROUTES', () => {
         .get('/api/surveys')
         .expect(403)
     })
-    /*  test('should return  204 on LoadSurvey with no surveys list', async () => {
+    /* test('should return 204 on LoadSurvey with no surveys list', async () => {
       const accessToken = await mockAccessToken()
       await supertest(app)
         .get('/api/surveys')

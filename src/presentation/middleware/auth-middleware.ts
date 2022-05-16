@@ -5,7 +5,7 @@ import { HttpRequest, HttpResponse, Middleware } from '../protocols'
 
 export class AuthMiddleware implements Middleware {
   constructor (
-    private readonly LoadAccountByToken: LoadAccountByToken,
+    private readonly loadAccountByToken: LoadAccountByToken,
     private readonly role?: string
   ) {}
 
@@ -13,7 +13,7 @@ export class AuthMiddleware implements Middleware {
     try {
       const token = req.headers?.['x-access-token']
       if (token) {
-        const accountData = await this.LoadAccountByToken.load(token, this.role)
+        const accountData = await this.loadAccountByToken.load(token, this.role)
         if (accountData) {
           return ok({ accountId: accountData.id })
         }
