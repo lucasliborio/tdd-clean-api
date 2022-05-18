@@ -1,6 +1,6 @@
 import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/helpers/http/http-helper'
+import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, SurveyModel } from '../survey/load-survey/load-survey-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import MockDate from 'mockdate'
@@ -108,13 +108,24 @@ describe('Save Survey Result Controller', () => {
     const { sut, saveSurveyResultStub } = makeSut()
     const { accountId, body } = makeFakeParamsRequest()
     const saveSpy = jest.spyOn(saveSurveyResultStub, 'save')
-    const result = await sut.handle(makeFakeParamsRequest())
-    console.log(result)
+    await sut.handle(makeFakeParamsRequest())
+
     expect(saveSpy).toBeCalledWith({
       surveyId: 'any_id',
       accountId: accountId,
       answer: body.answer,
       date: new Date()
     })
+  })
+  test('should return 500 if saveSurveyResult', async () => {
+    const { sut, saveSurveyResultStub } = makeSut()
+    jest.spyOn(saveSurveyResultStub, 'save').mockImplementationOnce(async () => { return Promise.reject(new Error()) })
+    const result = await sut.handle(makeFakeParamsRequest())
+    expect(result).toEqual(serverError(new Error()))
+  })
+  test('should return 200 on sucess', async () => {
+    const { sut } = makeSut()
+    const result = await sut.handle(makeFakeParamsRequest())
+    expect(result).toEqual(ok(makeFakeSurveyResultData()))
   })
 })
