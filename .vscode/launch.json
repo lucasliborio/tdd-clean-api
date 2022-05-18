@@ -8,11 +8,13 @@
       "restart": true,
       "port": 9222,
       "remoteRoot": "usr/workspace/tdd-node-api/dist",
-      "protocol": "inspector",
-      "resolveSourceMapLocations": [
-        "usr/workspace/tdd-node-api/dist/**",
-        "!node_modules",
-      ]
+    },
+    {
+      "name": "Node",
+      "type": "node",
+      "request": "attach",
+      "restart": true,
+      "port": 9222,
     }
   ]
 }
