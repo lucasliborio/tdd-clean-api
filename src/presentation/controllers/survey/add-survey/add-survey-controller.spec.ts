@@ -1,5 +1,5 @@
 import { badRequest, serverError } from '@/presentation/helpers/http/http-helper'
-import { HttpRequest, Controller, Validation, AddSurvey, AddSurveyModel } from './add-survey-protocols'
+import { HttpRequest, Controller, Validation, AddSurvey, AddSurveyParams } from './add-survey-protocols'
 import { AddSurveyController } from './add-survey-controller'
 import MockDate from 'mockdate'
 
@@ -20,7 +20,7 @@ describe('Add Survey Controller', () => {
   }
   const makeAddSurveyStub = (): AddSurvey => {
     class AddSurveyStub implements AddSurvey {
-      async add (account: AddSurveyModel): Promise<void> {
+      async add (account: AddSurveyParams): Promise<void> {
         return null
       }
     }
