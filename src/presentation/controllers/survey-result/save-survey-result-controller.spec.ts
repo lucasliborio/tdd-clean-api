@@ -1,6 +1,6 @@
 import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
-import { UnauthorizedError } from '@/presentation/errors'
-import { forbidden } from '@/presentation/helpers/http/http-helper'
+import { InvalidParamError } from '@/presentation/errors'
+import { forbidden, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, SurveyModel } from '../survey/load-survey/load-survey-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 
@@ -45,16 +45,28 @@ const makeSut = (): SutTypes => {
   }
 }
 describe('Save Survey Result Controller', () => {
-  test('should return 403 if LoadSurveyById returns null', async () => {
+  test('should call dependency LoadSurveyById with correct values', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadSpy = jest.spyOn(loadSurveyByIdStub, 'load')
     await sut.handle(makeFakeParamsRequest())
     expect(loadSpy).toBeCalledWith('any_id')
   })
-  test('should return 403 if LoadSurveyById returns null', async () => {
+  test('should return forbidden if LoadSurveyById returns null', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     jest.spyOn(loadSurveyByIdStub, 'load').mockResolvedValueOnce(null)
     const result = await sut.handle(makeFakeParamsRequest())
-    expect(result).toEqual(forbidden(new UnauthorizedError()))
+    expect(result).toEqual(forbidden(new InvalidParamError('survey_id')))
+  })
+  test('should return 500 if loadSurveyByIdThrows', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'load').mockImplementationOnce(async () => { return Promise.reject(new Error()) })
+    const result = await sut.handle(makeFakeParamsRequest())
+    expect(result).toEqual(serverError(new Error()))
+  })
+  test('should return 403 if a invalid answer is provided', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'load').mockResolvedValueOnce(null)
+    const result = await sut.handle(makeFakeParamsRequest())
+    expect(result).toEqual(forbidden(new InvalidParamError('survey_id')))
   })
 })
