@@ -16,15 +16,7 @@ const makeHasher = (): Hasher => {
   }
   return new HasherStub()
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const makeAccount = (): AccountModel => {
-  return {
-    id: 'valid_id',
-    name: 'valid_name',
-    email: 'valid_email',
-    password: 'hashed_password'
-  }
-}
+
 const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
   class LoadAccountByEmailRepositoryStub implements LoadAccountByEmailRepository {
     async loadByEmail (email: string): Promise<AccountModel> {
