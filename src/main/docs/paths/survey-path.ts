@@ -5,7 +5,7 @@ export const surveyPath = {
       apiKeyAuth: []
     }],
     tags: ['Survey'],
-    summary: 'List all valid surveys',
+    summary: 'API TO LIST ALL VALID SURVEYS',
     responses: {
       200: {
         description: 'sucess',
@@ -29,18 +29,23 @@ export const surveyPath = {
     }
   },
   post: {
+    security: [{
+      apiKeyAuth: []
+    }],
     tags: ['Survey'],
-    summary: 'add a survey',
-    responses: {
-      200: {
-        description: 'sucess',
-        content: {
-          'application/json': {
-            schema: {
-              $ref: '#/schemas/survey'
-            }
+    summary: 'API TO CREATE A NEW SURVEY',
+    requestBody: {
+      content: {
+        'application/json': {
+          schema: {
+            $ref: '#/schemas/addSurveySchema'
           }
         }
+      }
+    },
+    responses: {
+      204: {
+        description: 'sucess'
       },
       403: {
         $ref: '#/components/forbiddenError'

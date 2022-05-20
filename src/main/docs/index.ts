@@ -5,12 +5,16 @@ import { serverErrorResponse } from './components/server-error-response'
 import { loginPath } from './paths/login-path'
 import { signupPath } from './paths/signup-path'
 import { surveyPath } from './paths/survey-path'
+import { surveyResultPath } from './paths/survey-result-path'
 import { accountSchema } from './schemas/account-schema'
+import { addSurveySchema } from './schemas/add-survey-schema'
 import { answerSchema } from './schemas/answer-schema'
 import { apiKeySchema } from './schemas/api-key-schema'
 import { errorSchema } from './schemas/error-schema'
 import { loginParamsSchema } from './schemas/login-params-schema'
+import { surveyResultSchema } from './schemas/save-result-response-schema'
 import { signUpParamsSchema } from './schemas/signup-params-schema'
+import { surveyResultParamsSchema } from './schemas/survey-result-schema'
 import { surveySchema } from './schemas/survey-schema'
 import { surveysSchema } from './schemas/surveys-schema'
 
@@ -25,8 +29,9 @@ export default {
   }],
   paths: {
     '/login': loginPath,
+    '/signup': signupPath,
     '/surveys': surveyPath,
-    '/signup': signupPath
+    '/surveys/{surveyId}/results': surveyResultPath
   },
   license: {
     name: 'GPL-3.0-or-later',
@@ -40,7 +45,10 @@ export default {
     surveyAnswer: answerSchema,
     survey: surveySchema,
     surveys: surveysSchema,
-    signupParams: signUpParamsSchema
+    signupParams: signUpParamsSchema,
+    addSurveySchema: addSurveySchema,
+    surveyResultSchema: surveyResultParamsSchema,
+    surveyResultResponseSchema: surveyResultSchema
   },
   components: {
     securitySchemes: {
