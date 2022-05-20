@@ -1,6 +1,6 @@
 {
   "name": "tdd-typescript",
-  "version": "2.1.0",
+  "version": "2.3.0",
   "description": "Node API with TDD and Typescript",
   "main": "index.js",
   "scripts": {
