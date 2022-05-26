@@ -13,6 +13,7 @@ import { apiKeySchema } from './schemas/api-key-schema'
 import { errorSchema } from './schemas/error-schema'
 import { loginParamsSchema } from './schemas/login-params-schema'
 import { surveyResultSchema } from './schemas/save-result-response-schema'
+import { saveSurveyResultParamsSchema } from './schemas/save-survey-result-params'
 import { signUpParamsSchema } from './schemas/signup-params-schema'
 import { surveyResultParamsSchema } from './schemas/survey-result-schema'
 import { surveySchema } from './schemas/survey-schema'
@@ -48,7 +49,8 @@ export default {
     signupParams: signUpParamsSchema,
     addSurveySchema: addSurveySchema,
     surveyResultSchema: surveyResultParamsSchema,
-    surveyResultResponseSchema: surveyResultSchema
+    surveyResultResponseSchema: surveyResultSchema,
+    saveSurveyResultParams: saveSurveyResultParamsSchema
   },
   components: {
     securitySchemes: {

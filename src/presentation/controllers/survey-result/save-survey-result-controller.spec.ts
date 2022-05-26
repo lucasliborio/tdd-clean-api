@@ -16,10 +16,17 @@ const makeFakeParamsRequest = (): HttpRequest => ({
   accountId: 'valid_account_id'
 })
 const makeFakeSurveyResultData = (): SurveyResultModel => ({
-  id: 'valid_id',
   surveyId: 'valid_survey_id',
-  accountId: 'valid_account_id',
-  answer: 'any_answer',
+  question: 'langueage most used',
+  answers: [{
+    answer: 'node'
+  },
+  {
+    answer: 'python'
+  },
+  {
+    answer: 'goolang'
+  }],
   date: new Date()
 })
 const makeFakeSurvey = (): SurveyModel => {

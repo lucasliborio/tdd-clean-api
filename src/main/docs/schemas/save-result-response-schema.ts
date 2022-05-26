@@ -2,20 +2,21 @@ export const surveyResultSchema = {
   type: 'object',
   description: 'API to send answer to a survey',
   properties: {
-    accountId: {
-      type: 'string'
-    },
     surveyId: {
       type: 'string'
     },
-    answer: {
+    question: {
       type: 'string'
+    },
+    answers: {
+      type: 'array',
+      items: {
+        $ref: '#/schemas/surveyResultSchema'
+      }
     },
     data: {
       type: 'string'
-    },
-    id: {
-      type: 'string'
     }
-  }
+  },
+  required: ['surveyId', 'question', 'answers']
 }

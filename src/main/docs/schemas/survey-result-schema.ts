@@ -3,6 +3,15 @@ export const surveyResultParamsSchema = {
   properties: {
     answer: {
       type: 'string'
+    },
+    image: {
+      type: 'string'
+    },
+    count: {
+      type: 'number'
+    },
+    percent: {
+      type: 'string'
     }
   }
 }

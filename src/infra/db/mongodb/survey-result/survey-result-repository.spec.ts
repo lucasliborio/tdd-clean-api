@@ -20,6 +20,10 @@ const makeSurveyInsert = async (): Promise<SurveyModel> => {
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
+    },
+    {
+      image: 'any_image',
+      answer: 'other_'
     }],
     date: new Date()
   })
