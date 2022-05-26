@@ -84,3 +84,8 @@ describe('survey result repository', () => {
     expect(surveyResult).toHaveProperty('id')
   })
 })
+
+describe('loadResultBySurveyId()', () => {
+  test('', () => {
+  })
+})
