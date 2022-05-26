@@ -14,7 +14,7 @@ export const surveyResultSchema = {
         $ref: '#/schemas/surveyResultSchema'
       }
     },
-    data: {
+    date: {
       type: 'string'
     }
   },
