@@ -20,6 +20,7 @@ const makeFakeSurvey = (): SurveyModel => {
     date: new Date()
   }
 }
+
 const makeSurveyRepo = (): LoadSurveyByIdRepository => {
   class LoadSurveyByIdRepoStub implements LoadSurveyByIdRepository {
     async loadById (id: string): Promise<SurveyModel> {

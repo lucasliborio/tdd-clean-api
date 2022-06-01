@@ -2,7 +2,7 @@ import { LoadSurveyResultRepository } from '@/data/protocols/db/survey-result/lo
 import { SurveyResultModel } from '@/domain/models/survey-result'
 import { LoadSurveyByIdRepository, SurveyModel } from '../../survey/load-survey-by-id/db-load-survey-by-id-protocols'
 import { DbLoadSurveyResult } from './db-load-survey-result'
-
+import MockDate from 'mockdate'
 const makeFakeSurvey = (): SurveyModel => {
   return {
     id: 'valid_id',
@@ -19,7 +19,29 @@ const makeFakeSurvey = (): SurveyModel => {
     date: new Date()
   }
 }
-const mockLoadSurveyResult = ({
+const makeFakeSurveyResultIfDontExistSaveResult = (): SurveyResultModel => {
+  return {
+    surveyId: 'valid_id',
+    question: 'what tech do you know?',
+    answers: [{
+      answer: 'node',
+      count: 0,
+      percent: '0'
+    },
+    {
+      answer: 'python',
+      count: 0,
+      percent: '0'
+    },
+    {
+      answer: 'goolang',
+      count: 0,
+      percent: '0'
+    }],
+    date: new Date()
+  }
+}
+const mockFakeLoadSurveyResult = ({
   surveyId: 'any_survey_id',
   question: 'any_question',
   answers: [
@@ -27,13 +49,13 @@ const mockLoadSurveyResult = ({
       answer: 'any_answer1',
       image: 'any_image1',
       count: 0,
-      percent: 'any_percent1'
+      percent: '0'
     },
     {
       answer: 'any_answer2',
       image: 'any_image2',
       count: 0,
-      percent: 'any_percent2'
+      percent: '0'
     }
   ],
   date: new Date()
@@ -41,7 +63,7 @@ const mockLoadSurveyResult = ({
 const makeloadSurveyResultStub = (): LoadSurveyResultRepository => {
   class LoadSurveyRepositoryStub implements LoadSurveyResultRepository {
     async loadResultBySurveyId (surveyId: string): Promise<SurveyResultModel> {
-      return Promise.resolve(mockLoadSurveyResult)
+      return Promise.resolve(mockFakeLoadSurveyResult)
     }
   }
   return new LoadSurveyRepositoryStub()
@@ -66,6 +88,12 @@ const makeSut = (): SutTypes => {
   return { sut, loadSurveyResultStub, loadSurveyByIdStub }
 }
 describe('DB LoadSurveyResult usecase', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+  afterAll(() => {
+    MockDate.reset()
+  })
   test('should call LoadSurveyResultRepository with correct values', async () => {
     const { sut, loadSurveyResultStub } = makeSut()
     const loadSurveyIdSpy = jest.spyOn(loadSurveyResultStub, 'loadResultBySurveyId')
@@ -79,6 +107,12 @@ describe('DB LoadSurveyResult usecase', () => {
     await sut.load('any_survey_id')
     expect(loadByIdSpy).toBeCalledWith('any_survey_id')
   })
+  test('should return surveyResultModel with all answers with count 0 if LoadSurveyResultRepository returns mull', async () => {
+    const { sut, loadSurveyResultStub } = makeSut()
+    jest.spyOn(loadSurveyResultStub, 'loadResultBySurveyId').mockResolvedValueOnce(null)
+    const result = await sut.load('any_survey_id')
+    expect(result).toEqual(makeFakeSurveyResultIfDontExistSaveResult())
+  })
   test('should throw if loadSurveyResultRepository throws', async () => {
     const { sut, loadSurveyResultStub } = makeSut()
     jest.spyOn(loadSurveyResultStub, 'loadResultBySurveyId').mockRejectedValueOnce(new Error())
@@ -88,6 +122,6 @@ describe('DB LoadSurveyResult usecase', () => {
   test('should return a SurveyResult on sucesss', async () => {
     const { sut } = makeSut()
     const result = await sut.load('any_survey_id')
-    expect(result).toEqual(mockLoadSurveyResult)
+    expect(result).toEqual(mockFakeLoadSurveyResult)
   })
 })

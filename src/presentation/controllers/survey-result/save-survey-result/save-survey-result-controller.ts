@@ -2,7 +2,7 @@ import { SaveSurveyResult } from '@/domain/usecases/survey-result/save-survey-re
 import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
 import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { Controller, HttpRequest, HttpResponse } from '../survey/load-survey/load-survey-protocols'
+import { Controller, HttpRequest, HttpResponse } from '../../survey/load-survey/load-survey-protocols'
 
 export class SaveSurveyResultController implements Controller {
   constructor (

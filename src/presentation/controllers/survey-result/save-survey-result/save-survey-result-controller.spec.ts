@@ -1,7 +1,7 @@
 import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
 import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
-import { Controller, HttpRequest, SurveyModel } from '../survey/load-survey/load-survey-protocols'
+import { Controller, HttpRequest, SurveyModel } from '../../survey/load-survey/load-survey-protocols'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import MockDate from 'mockdate'
 import { SaveSurveyResult, SaveSurveyParams } from '@/domain/usecases/survey-result/save-survey-result'
