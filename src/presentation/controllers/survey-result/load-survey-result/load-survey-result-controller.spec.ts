@@ -2,7 +2,7 @@ import { SurveyResultModel } from '@/domain/models/survey-result'
 import { LoadSurveyResult } from '@/domain/usecases/survey-result/load-survey-result'
 import { LoadSurveyById } from '@/domain/usecases/survey/load-survey-by-id'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/helpers/http/http-helper'
+import { forbidden, ok, serverError } from '@/presentation/helpers/http/http-helper'
 import { Controller, HttpRequest, SurveyModel } from '../../survey/load-survey/load-survey-protocols'
 import { LoadSurveyResultController } from './load-survey-result-controller'
 
@@ -103,5 +103,10 @@ describe('LoadSurveyResult Controller', () => {
     jest.spyOn(loadSurveyResultStub, 'load').mockRejectedValueOnce(new Error())
     const result = await sut.handle(mockFakeRequest())
     expect(result).toEqual(serverError(new Error()))
+  })
+  test('Should return 200 if loadSurveyResult throws', async () => {
+    const { sut } = makeSut()
+    const result = await sut.handle(mockFakeRequest())
+    expect(result).toEqual(ok(mockSurveyResult()))
   })
 })

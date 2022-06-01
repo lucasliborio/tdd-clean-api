@@ -5,7 +5,7 @@ import { SaveSurveyResult, SaveSurveyParams } from '@/domain/usecases/survey-res
 export class DbSaveSurveyResult implements SaveSurveyResult {
   constructor (private readonly saveSurveyResultRepository: SaveSurveyResultRepository) {}
   async save (data: SaveSurveyParams): Promise<SurveyResultModel> {
-    const surveyResult = this.saveSurveyResultRepository.saveSurveyResult(data)
+    const surveyResult = await this.saveSurveyResultRepository.saveSurveyResult(data)
     return surveyResult
   }
 }

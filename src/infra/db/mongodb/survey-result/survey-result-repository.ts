@@ -21,7 +21,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
       upsert: true
     })
     if (surveyResult.value) return MongoHelper.map(surveyResult.value)
-    return await MongoHelper.map(await surveyResultCollection.findOne({ _id: surveyResult.lastErrorObject.upserted })) as unknown as SurveyResultModel
+    return MongoHelper.map(await surveyResultCollection.findOne({ _id: surveyResult.lastErrorObject.upserted })) as unknown as SurveyResultModel
   }
 
   async loadResultBySurveyId (surveyId: string): Promise<SurveyResultModel> {
