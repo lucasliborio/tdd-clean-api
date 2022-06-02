@@ -1,7 +1,8 @@
-export interface AuthenticationModel {
+import { AuthenticationModel } from '@/domain/models/authentication'
+export interface AuthenticationParams {
   email: string
   password: string
 }
 export interface Authentication {
-  auth: (authentication: AuthenticationModel) => Promise<string>
+  auth: (authentication: AuthenticationParams) => Promise<AuthenticationModel>
 }
