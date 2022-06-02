@@ -1,5 +1,5 @@
 import { DbAuthentication } from './db-authentication'
-import { AccountModel, Authentication, AuthenticationModel, HashComparer, LoadAccountByEmailRepository, Encrypter, UpdateAccessTokenRepository } from './db-authentication-protocols'
+import { AccountModel, Authentication, HashComparer, LoadAccountByEmailRepository, Encrypter, UpdateAccessTokenRepository, AuthenticationParams } from './db-authentication-protocols'
 
 interface SutTypes {
   sut: Authentication
@@ -18,7 +18,7 @@ const makeAccount = (): AccountModel => {
   }
 }
 
-const makeFakeAuthenticationModel = (): AuthenticationModel => {
+const makeFakeAuthenticationModel = (): AuthenticationParams => {
   return {
     email: 'valid_email',
     password: 'valid_password'

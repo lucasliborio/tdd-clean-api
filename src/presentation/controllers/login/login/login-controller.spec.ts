@@ -1,6 +1,7 @@
-import { Controller, HttpRequest, Authentication, Validation, AuthenticationModel } from './login-protocols'
+import { Controller, HttpRequest, Authentication, Validation, AuthenticationParams } from './login-protocols'
 import { LoginController } from './login-controller'
 import { unauthorized, serverError, ok, badRequest } from '@/presentation/helpers/http/http-helper'
+import { AuthenticationModel } from '@/domain/models/authentication'
 
 interface SutTypes {
   sut: Controller
@@ -26,8 +27,8 @@ const makeValidation = (): Validation => {
 
 const makeAuthentication = (): Authentication => {
   class AuthenticatetionStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
-      return 'any_token'
+    async auth (authentication: AuthenticationParams): Promise<AuthenticationModel> {
+      return { accessToken: 'any_token', name: 'any_name' }
     }
   }
   return new AuthenticatetionStub()
@@ -69,7 +70,7 @@ describe('Login Controller', () => {
   test('should return 200 on valid request params', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeRequest())
-    expect(httpResponse).toEqual(ok({ acessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token', name: 'any_name' }))
   })
   test('should call validation with correct value', async () => {
     const { sut, validationStub } = makeSut()

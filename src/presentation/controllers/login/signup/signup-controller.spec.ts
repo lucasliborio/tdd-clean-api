@@ -1,8 +1,8 @@
-
-import { AddAccount, AddAccountParams, AccountModel, HttpRequest, Validation, Authentication, AuthenticationModel } from './signup-protocols'
+import { AddAccount, AddAccountParams, AccountModel, HttpRequest, Validation, Authentication, AuthenticationParams } from './signup-protocols'
 import { SignUpController } from './signup-controller'
 import { serverError, forbidden, badRequest, ok } from '@/presentation/helpers/http/http-helper'
 import { ServerError, InvalidParamError, EmailInUseError } from '@/presentation/errors'
+import { AuthenticationModel } from '@/domain/models/authentication'
 
 /* const makeEmailValidatorWithError = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
@@ -40,8 +40,8 @@ const makeAuthRequest = (): HttpRequest => {
 }
 const makeAuthentication = (): Authentication => {
   class AuthenticatetionStub implements Authentication {
-    async auth (authentication: AuthenticationModel): Promise<string> {
-      return 'any_token'
+    async auth (authentication: AuthenticationParams): Promise<AuthenticationModel> {
+      return Promise.resolve({ accessToken: 'any_token', name: 'valid_name' })
     }
   }
   return new AuthenticatetionStub()
@@ -137,6 +137,6 @@ describe('SignUp Controller', () => {
   test('should return 200 on valid request params', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeHttpRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token', name: 'valid_name' }))
   })
 })
