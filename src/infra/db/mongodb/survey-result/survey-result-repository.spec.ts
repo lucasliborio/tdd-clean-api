@@ -87,5 +87,12 @@ describe('survey result repository', () => {
     expect(surveyResult.answers[0].percent).toEqual(100)
   })
   describe('loadResultBySurveyId()', () => {
+    test('', async () => {
+      const sut = makeSut()
+      const survey = await makeSurveyInsert()
+      const surveyResult = await sut.loadResultBySurveyId(survey.id)
+
+      expect(surveyResult).toEqual(null)
+    })
   })
 })
