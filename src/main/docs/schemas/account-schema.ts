@@ -3,6 +3,9 @@ export const accountSchema = {
   properties: {
     accesstoken: {
       type: 'string'
+    },
+    name: {
+      type: 'string'
     }
   }
 }
