@@ -4,12 +4,11 @@ import { SurveyResultModel } from '@/domain/models/survey-result'
 import { SaveSurveyParams } from '@/domain/usecases/survey-result/save-survey-result'
 import { ObjectId } from 'mongodb'
 import { MongoHelper } from '../helpers/mongo-helper'
-import { QueryBuilder } from '../helpers/query-builder'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository, LoadSurveyResultRepository {
   async saveSurveyResult (data: SaveSurveyParams): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResult')
-    const surveyResult = await surveyResultCollection.findOneAndUpdate({
+    await surveyResultCollection.findOneAndUpdate({
       surveyId: new ObjectId(data.surveyId),
       accountId: new ObjectId(data.accountId)
     }, {
@@ -20,11 +19,35 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
     }, {
       upsert: true
     })
-    if (surveyResult.value) return MongoHelper.map(surveyResult.value)
-    return MongoHelper.map(await surveyResultCollection.findOne({ _id: surveyResult.lastErrorObject.upserted })) as unknown as SurveyResultModel
+    return this.loadResultBySurveyId(data.surveyId)
   }
 
   async loadResultBySurveyId (surveyId: string): Promise<SurveyResultModel> {
+    const surveyResultCollection = await MongoHelper.getCollection('surveyResult')
+    const resultsBySurveyId = await surveyResultCollection.find({
+      surveyId: new ObjectId(surveyId)
+    }).toArray()
+
+    if (!resultsBySurveyId.length) return null
+    return await this.createSurveyResult(resultsBySurveyId)
+  }
+
+  async createSurveyResult (results: any): Promise<SurveyResultModel> {
+    const allCount = results.length
+    const survey = await (await MongoHelper.getCollection('surveys')).findOne({ _id: new ObjectId(results[0].surveyId) })
+    const surveysAnswers = survey.answers.map(x => Object.assign(x, { count: 0, percent: 0 }))
+    results.forEach(result => { surveysAnswers.map(answers => result.answer === answers.answer ? answers.count++ : false) })
+    surveysAnswers.forEach(answer => answer.percent = Math.round((answer.count / allCount) * 100))
+    return {
+      surveyId: survey._id.toString(),
+      question: survey.question,
+      answers: surveysAnswers,
+      date: survey.date
+
+    }
+  }
+
+  /* async loadResultBySurveyId (surveyId: string): Promise<SurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection('surveyResults')
     const query = new QueryBuilder()
       .match({
@@ -192,5 +215,5 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
       .build()
     const surveyResult = await surveyResultCollection.aggregate<SurveyResultModel>(query).toArray()
     return surveyResult.length ? surveyResult[0] : null
-  }
+  } */
 }

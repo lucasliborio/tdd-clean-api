@@ -26,17 +26,17 @@ const makeFakeSurveyResultIfDontExistSaveResult = (): SurveyResultModel => {
     answers: [{
       answer: 'node',
       count: 0,
-      percent: '0'
+      percent: 0
     },
     {
       answer: 'python',
       count: 0,
-      percent: '0'
+      percent: 0
     },
     {
       answer: 'goolang',
       count: 0,
-      percent: '0'
+      percent: 0
     }],
     date: new Date()
   }
@@ -49,13 +49,13 @@ const mockFakeLoadSurveyResult = ({
       answer: 'any_answer1',
       image: 'any_image1',
       count: 0,
-      percent: '0'
+      percent: 0
     },
     {
       answer: 'any_answer2',
       image: 'any_image2',
       count: 0,
-      percent: '0'
+      percent: 0
     }
   ],
   date: new Date()

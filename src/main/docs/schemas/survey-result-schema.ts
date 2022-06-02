@@ -11,7 +11,7 @@ export const surveyResultParamsSchema = {
       type: 'number'
     },
     percent: {
-      type: 'string'
+      type: 'number'
     }
   }
 }

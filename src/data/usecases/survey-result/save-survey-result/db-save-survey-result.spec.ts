@@ -18,7 +18,7 @@ const makeFakeSurveyResult = (): SurveyResultModel => ({
     answer: 'any_answer',
     image: 'any_image',
     count: 5,
-    percent: 'any_percent'
+    percent: 0
   }],
   date: new Date()
 })

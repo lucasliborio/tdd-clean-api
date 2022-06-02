@@ -10,5 +10,5 @@ interface SurveyResultAnswerModel {
   image?: string
   answer: string
   count?: number
-  percent?: string
+  percent?: number
 }
